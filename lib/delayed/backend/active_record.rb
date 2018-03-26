@@ -41,6 +41,10 @@ module Delayed
         scope :for_queues, lambda { |queues = Worker.queues| where(queue: queues) if Array(queues).any? }
         scope :for_rails, lambda { where(rails5: Rails::VERSION::STRING[0] == "5") }
 
+        before_validation do
+          self.rails5 = Rails::VERSION::STRING[0] == "5"
+        end
+
         before_save :set_default_run_at
 
         def self.set_delayed_job_table_name

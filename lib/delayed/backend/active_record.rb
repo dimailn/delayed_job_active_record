@@ -43,6 +43,7 @@ module Delayed
 
         before_validation do
           self.rails5 = Rails::VERSION::STRING[0] == "5"
+          true
         end
 
         before_save :set_default_run_at
